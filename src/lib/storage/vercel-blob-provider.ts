@@ -9,10 +9,15 @@ export class VercelBlobProvider implements StorageProvider {
   }
 
   async uploadFile(path: string, content: Buffer | string, contentType?: string): Promise<string> {
+    // Ensure HTML files have proper charset
+    const finalContentType = contentType === "text/html" 
+      ? "text/html; charset=utf-8" 
+      : (contentType || "text/html; charset=utf-8");
+    
     const blob = await put(path, content, {
       access: "public",
       token: this.token,
-      contentType: contentType || "text/html",
+      contentType: finalContentType,
       addRandomSuffix: false, // Keep the exact filename
     });
     return blob.url;
