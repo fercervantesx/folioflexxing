@@ -7,7 +7,7 @@ export type StorageType = "vercel-blob" | "local" | "cloudflare-r2";
 
 export class StorageFactory {
   static createProvider(storageType?: StorageType): StorageProvider {
-    const type = storageType || (process.env.STORAGE_PROVIDER as StorageType) || "local";
+    const type = storageType || (process.env.NEXT_PUBLIC_STORAGE_PROVIDER as StorageType) || "local";
 
     switch (type) {
       case "vercel-blob": {

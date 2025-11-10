@@ -18,7 +18,7 @@ export default function Home() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
-  const [isAbsoluteUrl, setIsAbsoluteUrl] = useState(false);
+  const isAbsoluteUrl = process.env.NEXT_PUBLIC_STORAGE_PROVIDER === 'vercel-blob';
   const [error, setError] = useState<string | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState(templates[0].id);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
@@ -127,7 +127,6 @@ export default function Home() {
 
       const data = await response.json();
       setResultUrl(data.url);
-      setIsAbsoluteUrl(data.isAbsoluteUrl);
       await fetchHistory();
       
       // Reset form for next generation
