@@ -386,7 +386,11 @@ export default function Home() {
         <div className="relative w-full h-full flex flex-col">
           {resultUrl && (
             <>
-              <iframe src={resultUrl} className="w-full flex-1 border-none" title="Portfolio Preview" />
+              <iframe 
+                src={isAbsoluteUrl ? `/api/proxy-html?url=${encodeURIComponent(resultUrl)}` : resultUrl} 
+                className="w-full flex-1 border-none" 
+                title="Portfolio Preview" 
+              />
               
               {/* Bottom Banner */}
               <div className="bg-gradient-to-r from-gray-900 to-gray-800 border-t border-gray-700 px-6 py-4 flex items-center gap-4">
