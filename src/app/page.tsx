@@ -67,7 +67,8 @@ export default function Home() {
 
   const handleCopyUrl = () => {
     if (resultUrl) {
-      const fullUrl = `${window.location.origin}${resultUrl}`;
+      // Handle both relative and absolute URLs
+      const fullUrl = resultUrl.startsWith('http') ? resultUrl : `${window.location.origin}${resultUrl}`;
       navigator.clipboard.writeText(fullUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -395,7 +396,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                   </svg>
                   <span className="text-sm text-gray-300 truncate font-mono">
-                    {window.location.origin}{resultUrl}
+                    {resultUrl.startsWith('http') ? resultUrl : `${window.location.origin}${resultUrl}`}
                   </span>
                 </div>
 
