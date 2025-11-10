@@ -174,7 +174,7 @@ export default function Home() {
                   </svg>
                 )}
               </button>
-              {!file && (
+              {!file && !loading && (
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-600 border-dashed rounded-lg bg-gray-800/50 hover:border-indigo-500 transition-colors">
                 <div className="space-y-1 text-center">
                   <svg className="mx-auto h-12 w-12 text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -208,7 +208,7 @@ export default function Home() {
             </div>
 
             {/* Image Upload (Optional) */}
-            {file && (
+            {file && !loading && (
             <div>
               <label htmlFor="image-upload" className="block text-sm font-medium text-gray-300 mb-2">
                 2. Profile Image (Optional)
@@ -247,7 +247,7 @@ export default function Home() {
             )}
 
             {/* Template Selection */}
-            {file && (
+            {file && !loading && (
             <div>
               <label htmlFor="template" className="block text-sm font-medium text-gray-300 mb-3">
                 3. Choose a Template Style
@@ -286,7 +286,7 @@ export default function Home() {
             )}
             
             {/* reCAPTCHA */}
-            {file && (
+            {file && !loading && (
               <>
                 {!recaptchaVerified && (
                   <div className="flex justify-center">
