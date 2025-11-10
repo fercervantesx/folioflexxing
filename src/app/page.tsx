@@ -8,7 +8,7 @@ const templates = [
   { id: "bold-typography", name: "Bold Typography", description: "Statement fonts with asymmetric layouts" },
   { id: "minimal-cards", name: "Minimal Cards", description: "Clean grid-based design with project cards" },
   { id: "dark-modern", name: "Dark Modern", description: "Contemporary dark theme with accent colors" },
-  { id: "venice-inspired", name: "Venice Inspired", description: "Artistic layout with decorative elements" },
+  { id: "fluid-gradient", name: "Fluid Gradient", description: "Fluid gradients with frosted glass and premium spacing" },
   { id: "bento-grid", name: "Bento Grid", description: "Modular card layout with monochromatic palette and 3D depth" },
 ];
 
@@ -68,8 +68,11 @@ export default function Home() {
 
   const handleCopyUrl = () => {
     if (resultUrl) {
-      const fullUrl = isAbsoluteUrl ? resultUrl : `${window.location.origin}${resultUrl}`;
-      navigator.clipboard.writeText(fullUrl);
+      // For absolute URLs (Vercel Blob), create a proxied URL
+      const shareableUrl = isAbsoluteUrl 
+        ? `${window.location.origin}/api/proxy-html?url=${encodeURIComponent(resultUrl)}`
+        : `${window.location.origin}${resultUrl}`;
+      navigator.clipboard.writeText(shareableUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -143,9 +146,9 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen w-full flex bg-gray-900 overflow-hidden">
+    <main className="relative min-h-screen w-full flex flex-col md:flex-row bg-gray-900 overflow-hidden">
       {/* Left Panel: Controls */}
-      <div className={`w-full md:w-1/2 flex-shrink-0 flex flex-col items-center justify-center p-8 transition-all duration-500 ${resultUrl ? 'md:w-1/2' : 'md:w-full'}`}>
+      <div className={`w-full flex-shrink-0 flex flex-col items-center justify-center p-4 md:p-8 transition-all duration-500 ${resultUrl ? 'md:w-1/2' : 'md:w-full'}`}>
         <div className="w-full max-w-lg">
           <div className="text-center mb-10">
             <h1 className="text-5xl font-bold text-white mb-4">
@@ -382,7 +385,7 @@ export default function Home() {
       </div>
 
       {/* Right Panel: Preview */}
-      <div className={`absolute top-0 right-0 h-full w-1/2 bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${resultUrl ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`w-full md:w-1/2 md:absolute md:top-0 md:right-0 h-screen bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${resultUrl ? 'md:translate-x-0' : 'md:translate-x-full'} ${resultUrl ? 'block' : 'hidden md:block'}`}>
         <div className="relative w-full h-full flex flex-col">
           {resultUrl && (
             <>
@@ -400,7 +403,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                   </svg>
                   <span className="text-sm text-gray-300 truncate font-mono">
-                    {isAbsoluteUrl ? resultUrl : `${window.location.origin}${resultUrl}`}
+                    {isAbsoluteUrl ? `${window.location.origin}/api/proxy-html?url=${encodeURIComponent(resultUrl)}` : `${window.location.origin}${resultUrl}`}
                   </span>
                 </div>
 
@@ -441,7 +444,7 @@ export default function Home() {
 
                 {/* Open in New Tab */}
                 <a
-                  href={resultUrl}
+                  href={isAbsoluteUrl ? `/api/proxy-html?url=${encodeURIComponent(resultUrl)}` : resultUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"

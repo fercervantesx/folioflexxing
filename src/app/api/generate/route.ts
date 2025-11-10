@@ -263,14 +263,17 @@ export async function POST(req: NextRequest) {
       - Glassmorphism or subtle blur effects
       - Reference inspiration: modern tech portfolio sites
 
-      **venice-inspired:**
-      - Artistic, expressive layout with decorative elements
-      - Incorporate subtle circular badges or decorative icons
-      - Mix of italicized and regular fonts
-      - Soft, warm color palette
-      - Add small illustrative elements (flowers, abstract shapes)
-      - Personality-driven design with creative flair
-      - Reference inspiration: designer portfolios with artistic touches
+      **fluid-gradient:**
+      - Rich, fluid mesh gradients as background (vibrant colors with smooth transitions)
+      - Frosted glass/glassmorphism effects on content cards (backdrop-filter: blur)
+      - Premium spacing with generous padding and margins
+      - Semi-transparent containers with subtle borders
+      - Smooth gradient transitions (use multiple colors: blues, purples, oranges, pinks)
+      - Content organized in glassmorphic cards with proper elevation
+      - Clean, modern sans-serif typography
+      - Subtle shadows and depth for visual hierarchy
+      - Background: animated or static mesh gradient with rich colors
+      - Reference inspiration: modern SaaS landing pages with premium aesthetics
 
       **bento-grid:**
       - STRICTLY MONOCHROMATIC color scheme (grays, whites, blacks only - NO color accents)
