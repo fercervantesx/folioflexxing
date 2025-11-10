@@ -33,7 +33,7 @@ const cleanHTML = (text: string) => {
 
 const parsePdfBuffer = (fileBuffer: Buffer): Promise<{ text: string; pageCount: number }> => {
     return new Promise((resolve, reject) => {
-        const pdfParser = new PDFParser(null, 1);
+        const pdfParser = new PDFParser();
         pdfParser.on("pdfParser_dataError", (errData: any) => reject(new Error(errData.parserError)));
         pdfParser.on("pdfParser_dataReady", (pdfData: any) => {
             const pageCount = pdfData.Pages.length;
