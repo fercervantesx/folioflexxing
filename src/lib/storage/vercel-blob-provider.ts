@@ -13,6 +13,7 @@ export class VercelBlobProvider implements StorageProvider {
       access: "public",
       token: this.token,
       contentType: contentType || "text/html",
+      addRandomSuffix: false, // Keep the exact filename
     });
     return blob.url;
   }
