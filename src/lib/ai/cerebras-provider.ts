@@ -29,7 +29,7 @@ export class CerebrasProvider implements AIProvider {
 
     let fullResponse = "";
     for await (const chunk of stream) {
-      fullResponse += chunk.choices[0]?.delta?.content || "";
+      fullResponse += (chunk as any).choices[0]?.delta?.content || "";
     }
 
     return fullResponse;
