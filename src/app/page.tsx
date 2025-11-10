@@ -20,7 +20,7 @@ export default function Home() {
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   
   // Determine if URLs are absolute based on storage provider
-  const isAbsoluteUrl = process.env.NEXT_PUBLIC_STORAGE_PROVIDER === 'vercel-blob';
+  const isAbsoluteUrl = process.env.NEXT_PUBLIC_STORAGE_PROVIDER === 'vercel-blob' || false;
   const [error, setError] = useState<string | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState(templates[0].id);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
