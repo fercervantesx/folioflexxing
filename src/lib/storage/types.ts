@@ -4,6 +4,7 @@ export interface StorageProvider {
   getPublicUrl(path: string): string;
   deleteFile(path: string): Promise<void>;
   getName(): string;
+  isAbsoluteUrl(): boolean; // Returns true if URLs from this provider are absolute (http/https)
 }
 
 export interface StorageConfig {

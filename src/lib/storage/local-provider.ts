@@ -36,4 +36,8 @@ export class LocalStorageProvider implements StorageProvider {
   getName(): string {
     return "Local Storage";
   }
+
+  isAbsoluteUrl(): boolean {
+    return false;
+  }
 }

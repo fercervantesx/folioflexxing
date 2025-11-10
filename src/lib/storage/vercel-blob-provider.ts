@@ -33,4 +33,8 @@ export class VercelBlobProvider implements StorageProvider {
   getName(): string {
     return "Vercel Blob";
   }
+
+  isAbsoluteUrl(): boolean {
+    return true;
+  }
 }
