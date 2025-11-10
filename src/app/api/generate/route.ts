@@ -151,12 +151,11 @@ export async function POST(req: NextRequest) {
     }
 
     // 1.6. Prepare image info if provided
-    let imagePath = null;
     let imageBuffer = null;
+    let imageExtension = null;
     if (image) {
         imageBuffer = Buffer.from(await image.arrayBuffer());
-        const imageExtension = image.name.split('.').pop() || 'jpg';
-        imagePath = `./assets/profile.${imageExtension}`;
+        imageExtension = image.name.split('.').pop() || 'jpg';
     }
 
     // 2. AI Magic, Step 1: Structuring the Data
@@ -181,7 +180,22 @@ export async function POST(req: NextRequest) {
     const structuredDataText = await aiProvider.generateText(structuringPrompt);
     const structuredData = JSON.parse(cleanJSON(structuredDataText));
 
-    // 3. AI Magic, Step 2: Generating the Website
+    // 3. Upload image first if provided (so we have the URL for HTML generation)
+    const uniqueId = crypto.randomUUID();
+    const portfolioPrefix = `portfolios/${uniqueId}`;
+    let uploadedImageUrl: string | undefined;
+    const assets = [];
+    
+    if (image && imageBuffer && imageExtension) {
+        uploadedImageUrl = await storageProvider.uploadFile(
+          `${portfolioPrefix}/assets/profile.${imageExtension}`,
+          imageBuffer,
+          image.type
+        );
+        assets.push(`profile.${imageExtension}`);
+    }
+
+    // 4. AI Magic, Step 2: Generating the Website
     // Add randomness to avoid caching and encourage creative variations
     const randomSeed = Math.random().toString(36).substring(7);
     const creativeVariations = [
@@ -289,9 +303,9 @@ export async function POST(req: NextRequest) {
       - Add metrics/numbers where possible (years of experience, projects completed)
       - Make links and buttons visually distinct with hover states
 
-      ${imagePath ? `**Profile Image:**
+      ${uploadedImageUrl ? `**Profile Image:**
       A profile image has been provided. Use this image in the hero section or header area.
-      Embed it using: <img src="${imagePath}" alt="Profile" class="..." />
+      Embed it using: <img src="${uploadedImageUrl}" alt="Profile" class="..." />
       Make it prominent - use a large circular or artistic crop as appropriate for the template style.` : `**Profile Image:**
       NO profile image was provided. DO NOT include any image placeholders, broken image tags, or image frames.
       Focus on typography and decorative elements instead. Use the person's initials in a circular badge if needed.`}
@@ -307,31 +321,14 @@ export async function POST(req: NextRequest) {
 
     const generatedHtml = cleanHTML(await aiProvider.generateText(generationPrompt));
 
-    // 4. Save the portfolio using storage provider
-    const uniqueId = crypto.randomUUID();
-    const portfolioPrefix = `portfolios/${uniqueId}`;
-
-    // Save the HTML file
+    // 5. Save the HTML file
     const htmlUrl = await storageProvider.uploadFile(
       `${portfolioPrefix}/index.html`,
       generatedHtml,
       "text/html"
     );
 
-    // Save the image if provided
-    const assets = [];
-    let uploadedImageUrl: string | undefined;
-    if (image && imageBuffer) {
-        const imageExtension = image.name.split('.').pop() || 'jpg';
-        uploadedImageUrl = await storageProvider.uploadFile(
-          `${portfolioPrefix}/assets/profile.${imageExtension}`,
-          imageBuffer,
-          image.type
-        );
-        assets.push(`profile.${imageExtension}`);
-    }
-
-    // Create and save metadata.json
+    // 6. Create and save metadata.json
     const metadata = {
         id: uniqueId,
         createdAt: new Date().toISOString(),
@@ -345,7 +342,7 @@ export async function POST(req: NextRequest) {
     };
     await storageProvider.uploadJSON(`${portfolioPrefix}/metadata.json`, metadata);
 
-    // 5. Store portfolio in Redis history for this IP
+    // 7. Store portfolio in Redis history for this IP
     const historyKey = `portfolio:history:${identifier}`;
     const portfolioRecord = {
       id: uniqueId,
@@ -363,7 +360,7 @@ export async function POST(req: NextRequest) {
     // Store with 30 day expiration
     await redis.set(historyKey, updatedHistory, { ex: 30 * 24 * 60 * 60 });
 
-    // 6. Return the URL
+    // 8. Return the URL
     return NextResponse.json({ url: htmlUrl });
 
   } catch (error: any) {
