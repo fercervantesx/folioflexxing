@@ -23,8 +23,8 @@ export class CerebrasProvider implements AIProvider {
       model: this.modelId,
       stream: true,
       max_completion_tokens: 40960,
-      temperature: 0.6,
-      top_p: 0.95
+      temperature: 0.95,
+      top_p: 0.98
     });
 
     let fullResponse = "";

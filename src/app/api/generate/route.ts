@@ -182,6 +182,17 @@ export async function POST(req: NextRequest) {
     const structuredData = JSON.parse(cleanJSON(structuredDataText));
 
     // 3. AI Magic, Step 2: Generating the Website
+    // Add randomness to avoid caching and encourage creative variations
+    const randomSeed = Math.random().toString(36).substring(7);
+    const creativeVariations = [
+      "Experiment with unique color combinations and unexpected typography choices.",
+      "Try an unconventional layout approach that breaks traditional design patterns.",
+      "Focus on creating a memorable visual identity through distinctive design elements.",
+      "Push creative boundaries with bold design decisions and artistic flair.",
+      "Create a unique interpretation that stands out from typical portfolio websites."
+    ];
+    const randomVariation = creativeVariations[Math.floor(Math.random() * creativeVariations.length)];
+    
     const generationPrompt = `
       You are an award-winning web designer specializing in sophisticated, high-end personal portfolios.
       Your task is to transform the provided JSON data into a complete, single-page HTML file that looks like a professional designer's portfolio website.
@@ -192,6 +203,8 @@ export async function POST(req: NextRequest) {
       - Use large, bold typography and generous white space
       - Incorporate decorative elements (subtle illustrations, abstract shapes, gradient backgrounds)
       - Make it feel personal and unique, not template-like
+      - IMPORTANT: ${randomVariation}
+      - Design seed: ${randomSeed} (use this to inspire unique creative choices)
 
       **Technical Requirements:**
       - **Styling:** Use the Tailwind CSS CDN: <script src="https://cdn.tailwindcss.com"></script>
