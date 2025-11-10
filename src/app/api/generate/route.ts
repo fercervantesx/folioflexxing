@@ -363,8 +363,12 @@ export async function POST(req: NextRequest) {
     // Store with 30 day expiration
     await redis.set(historyKey, updatedHistory, { ex: 30 * 24 * 60 * 60 });
 
-    // 6. Return the URL
-    return NextResponse.json({ url: htmlUrl });
+    // 6. Return the URL with storage provider type
+    return NextResponse.json({ 
+      url: htmlUrl,
+      storageProvider: storageProvider.getName(),
+      isAbsoluteUrl: storageProvider.isAbsoluteUrl()
+    });
 
   } catch (error: any) {
     console.error("Error in /api/generate:", error);
