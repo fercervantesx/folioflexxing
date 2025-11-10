@@ -110,9 +110,9 @@ export async function POST(req: NextRequest) {
     }
     
     // Extremely long text suggests non-resume content
-    if (textLength > 15000) {
+    if (textLength > 35000) {
         return NextResponse.json({ 
-            error: "The PDF contains too much text to be a resume. Please upload a standard 1-3 page resume." 
+            error: "The PDF contains too much text to be a resume. Please upload a standard 1-5 page resume." 
         }, { status: 400 });
     }
 
