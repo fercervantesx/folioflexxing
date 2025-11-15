@@ -249,7 +249,15 @@ export async function POST(req: NextRequest) {
 
       **Template: "${template}"**
 
-      Template-Specific Design Guidelines:
+      ⚠️ CRITICAL INSTRUCTION - CONTENT vs STYLING:
+      - The template guidelines below are ONLY for VISUAL STYLING (fonts, colors, animations, layout)
+      - DO NOT mention the template name or design style in the actual content
+      - DO NOT create fake projects about "brutalist design" or "neo-brutalism websites"
+      - ALL content (projects, experience, skills) must come ONLY from the JSON data provided
+      - ONLY use the template guidelines for CSS styling, layout decisions, and visual aesthetics
+      - The user's actual work experience and projects are the ONLY content to display
+
+      Template-Specific Design Guidelines (STYLING ONLY, NOT CONTENT):
 
       **elegant-serif:**
       - **Fonts:** Playfair Display (headings) + Crimson Pro (body) OR Lora (headings) + Source Serif Pro (body)
@@ -381,10 +389,17 @@ export async function POST(req: NextRequest) {
       NO profile image was provided. DO NOT include any image placeholders, broken image tags, or image frames.
       Focus on typography and decorative elements instead. Use the person's initials in a circular badge if needed.`}
 
-      JSON data:
+      JSON data (USE THIS AS YOUR ONLY SOURCE OF CONTENT):
       ---
       ${JSON.stringify(structuredData, null, 2)}
       ---
+
+      ⚠️ FINAL REMINDER:
+      - Display ONLY the information from the JSON data above
+      - DO NOT invent fake projects, experiences, or skills
+      - DO NOT mention design styles or template names in content
+      - Use the template guidelines ONLY for visual styling (CSS, layout, animations)
+      - The person's real work and experience is what matters - showcase it beautifully
 
       Return only the complete HTML file, formatted as an HTML markdown code block. Do not include any other text or explanation.
       Make it look professional, polished, and impressive - like something that would get featured on Awwwards or CSS Design Awards.
