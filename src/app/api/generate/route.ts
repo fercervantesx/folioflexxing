@@ -239,13 +239,19 @@ export async function POST(req: NextRequest) {
       - Add decorative flourishes or borders
       - Reference inspiration: professional designer portfolios with classic typography
 
-      **bold-typography:**
-      - Large, statement typography that dominates the page
-      - Asymmetric, dynamic layouts with overlapping elements
-      - High contrast color scheme
-      - Use mix of font weights and sizes to create visual hierarchy
-      - Hero section with oversized name and title
-      - Reference inspiration: modern portfolio sites with experimental typography
+      **neo-brutalism:**
+      - Cream/beige background (#FFFAE5 or similar warm off-white)
+      - Heavy black borders (4px) on ALL elements
+      - Hard drop shadows (8px 8px 0px 0px black) - NO blur, solid offset shadows
+      - Bold, intense accent colors: bright orange (#FF4D00), acid green (#A3FF00), electric purple (#9D00FF)
+      - Use geometric shapes (squares, rectangles) - avoid rounded corners
+      - Heavy, bold fonts (Archivo Black, Space Grotesk, or similar display fonts)
+      - Extreme contrast and visual hierarchy
+      - Elements should look "printed" or "screen-printed" with solid fills
+      - Bento-style grid layouts with varying sizes
+      - Text-stroke effects for outlined typography
+      - Hover states with shadow removal (translate element to shadow position)
+      - Reference: Y2K aesthetics, punk zines, brutalist architecture
 
       **minimal-cards:**
       - Clean grid-based layout

@@ -5,7 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const templates = [
   { id: "elegant-serif", name: "Elegant Serif", description: "Sophisticated two-column layout with refined typography" },
-  { id: "bold-typography", name: "Bold Typography", description: "Statement fonts with asymmetric layouts" },
+  { id: "neo-brutalism", name: "Neo Brutalism", description: "Bold colors, heavy shadows, and raw geometric shapes" },
   { id: "minimal-cards", name: "Minimal Cards", description: "Clean grid-based design with project cards" },
   { id: "dark-modern", name: "Dark Modern", description: "Contemporary dark theme with accent colors" },
   { id: "fluid-gradient", name: "Fluid Gradient", description: "Fluid gradients with frosted glass and premium spacing" },
